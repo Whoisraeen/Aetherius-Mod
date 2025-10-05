@@ -48,8 +48,7 @@ public class MerchantNPC extends AetheriusNPC {
      * Add a simple offer (item for gold).
      */
     public void addSimpleOffer(ItemStack result, int goldCost, int maxUses) {
-        // TODO: Use custom gold item instead of emeralds
-        ItemStack gold = new ItemStack(net.minecraft.world.item.Items.EMERALD, goldCost);
+        ItemStack gold = new ItemStack(com.aetheriusmmorpg.common.registry.ModItems.GOLD_COIN.get(), goldCost);
         addOffer(result, gold, ItemStack.EMPTY, maxUses, 0);
     }
 
@@ -78,7 +77,7 @@ public class MerchantNPC extends AetheriusNPC {
     @Override
     protected void openMerchantDialog(Player player) {
         if (!this.level().isClientSide) {
-            player.sendSystemMessage(Component.literal("§6" + getDisplayName() + "§f: Welcome to " + shopName + "!"));
+            player.sendSystemMessage(Component.literal("§6" + getNpcDisplayName() + "§f: Welcome to " + shopName + "!"));
 
             // In full implementation, would open custom trading GUI
             if (offers.isEmpty()) {
@@ -95,7 +94,13 @@ public class MerchantNPC extends AetheriusNPC {
         super.addAdditionalSaveData(tag);
         tag.putString("ShopName", shopName);
         tag.putString("MerchantType", merchantType.name());
-        // TODO: Save merchant offers
+
+        // Save merchant offers
+        net.minecraft.nbt.ListTag offersTag = new net.minecraft.nbt.ListTag();
+        for (MerchantOffer offer : offers) {
+            offersTag.add(offer.createTag());
+        }
+        tag.put("Offers", offersTag);
     }
 
     @Override
@@ -109,7 +114,16 @@ public class MerchantNPC extends AetheriusNPC {
                 merchantType = MerchantType.valueOf(tag.getString("MerchantType"));
             } catch (IllegalArgumentException ignored) {}
         }
-        // TODO: Load merchant offers
+
+        // Load merchant offers
+        if (tag.contains("Offers")) {
+            net.minecraft.nbt.ListTag offersTag = tag.getList("Offers", 10); // 10 = CompoundTag
+            offers.clear();
+            for (int i = 0; i < offersTag.size(); i++) {
+                MerchantOffer offer = new MerchantOffer(offersTag.getCompound(i));
+                offers.add(offer);
+            }
+        }
     }
 
     /**

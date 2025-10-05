@@ -5,8 +5,7 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.resources.ResourceLocation;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Implementation of PlayerRpgData capability.
@@ -20,6 +19,8 @@ public class PlayerRpgDataImpl implements PlayerRpgData {
     private boolean hasCreatedCharacter = false;
     private String raceId = "";
     private String classId = "";
+    private int hairStyle = 0;
+    private int skinTone = 0;
 
     private double power = 10.0;
     private double spirit = 10.0;
@@ -35,6 +36,9 @@ public class PlayerRpgDataImpl implements PlayerRpgData {
 
     // Skill bar: 9 slots (indices 0-8)
     private final ResourceLocation[] skillBar = new ResourceLocation[9];
+
+    // Unlocked Skills
+    private final Set<ResourceLocation> unlockedSkills = new HashSet<>();
 
     // Quests
     private final Map<ResourceLocation, com.aetheriusmmorpg.common.quest.QuestProgress> activeQuests = new HashMap<>();
@@ -105,6 +109,25 @@ public class PlayerRpgDataImpl implements PlayerRpgData {
     @Override
     public void setClassId(String classId) {
         this.classId = classId;
+        markDirty();
+    }
+
+    // Appearance
+    @Override
+    public int getHairStyle() { return hairStyle; }
+
+    @Override
+    public void setHairStyle(int hairStyle) {
+        this.hairStyle = hairStyle;
+        markDirty();
+    }
+
+    @Override
+    public int getSkinTone() { return skinTone; }
+
+    @Override
+    public void setSkinTone(int skinTone) {
+        this.skinTone = skinTone;
         markDirty();
     }
 
@@ -246,6 +269,24 @@ public class PlayerRpgDataImpl implements PlayerRpgData {
         }
     }
 
+    // Unlocked Skills
+    @Override
+    public Set<ResourceLocation> getUnlockedSkills() {
+        return new HashSet<>(unlockedSkills);
+    }
+
+    @Override
+    public void unlockSkill(ResourceLocation skillId) {
+        if (unlockedSkills.add(skillId)) {
+            markDirty();
+        }
+    }
+
+    @Override
+    public boolean isSkillUnlocked(ResourceLocation skillId) {
+        return unlockedSkills.contains(skillId);
+    }
+
     // Quests
     @Override
     public java.util.List<com.aetheriusmmorpg.common.quest.QuestProgress> getActiveQuests() {
@@ -290,6 +331,8 @@ public class PlayerRpgDataImpl implements PlayerRpgData {
         this.hasCreatedCharacter = source.hasCreatedCharacter();
         this.raceId = source.getRaceId();
         this.classId = source.getClassId();
+        this.hairStyle = source.getHairStyle();
+        this.skinTone = source.getSkinTone();
         this.power = source.getPower();
         this.spirit = source.getSpirit();
         this.agility = source.getAgility();
@@ -301,6 +344,8 @@ public class PlayerRpgDataImpl implements PlayerRpgData {
         this.cooldowns.putAll(source.getCooldowns());
         ResourceLocation[] sourceSkillBar = source.getSkillBar();
         System.arraycopy(sourceSkillBar, 0, this.skillBar, 0, 9);
+        this.unlockedSkills.clear();
+        this.unlockedSkills.addAll(source.getUnlockedSkills());
         this.activeQuests.clear();
         source.getActiveQuests().forEach(q -> this.activeQuests.put(q.getQuestId(), q));
         this.completedQuests.clear();
@@ -334,6 +379,8 @@ public class PlayerRpgDataImpl implements PlayerRpgData {
         tag.putBoolean("HasCreatedCharacter", hasCreatedCharacter);
         tag.putString("RaceId", raceId);
         tag.putString("ClassId", classId);
+        tag.putInt("HairStyle", hairStyle);
+        tag.putInt("SkinTone", skinTone);
 
         tag.putDouble("Power", power);
         tag.putDouble("Spirit", spirit);
@@ -363,6 +410,13 @@ public class PlayerRpgDataImpl implements PlayerRpgData {
         }
         tag.put("SkillBar", skillBarTag);
 
+        // Serialize unlocked skills
+        ListTag unlockedSkillsTag = new ListTag();
+        for (ResourceLocation skillId : unlockedSkills) {
+            unlockedSkillsTag.add(StringTag.valueOf(skillId.toString()));
+        }
+        tag.put("UnlockedSkills", unlockedSkillsTag);
+
         // Serialize quests
         ListTag activeQuestsTag = new ListTag();
         for (com.aetheriusmmorpg.common.quest.QuestProgress progress : activeQuests.values()) {
@@ -387,6 +441,8 @@ public class PlayerRpgDataImpl implements PlayerRpgData {
         hasCreatedCharacter = tag.getBoolean("HasCreatedCharacter");
         raceId = tag.getString("RaceId");
         classId = tag.getString("ClassId");
+        hairStyle = tag.getInt("HairStyle");
+        skinTone = tag.getInt("SkinTone");
 
         power = tag.getDouble("Power");
         spirit = tag.getDouble("Spirit");
@@ -420,6 +476,18 @@ public class PlayerRpgDataImpl implements PlayerRpgData {
                 String skillStr = slotTag.getString("Skill");
                 if (slot >= 0 && slot < 9 && !skillStr.isEmpty()) {
                     skillBar[slot] = new ResourceLocation(skillStr);
+                }
+            }
+        }
+
+        // Deserialize unlocked skills
+        unlockedSkills.clear();
+        if (tag.contains("UnlockedSkills")) {
+            ListTag unlockedSkillsTag = tag.getList("UnlockedSkills", 8); // 8 = String type
+            for (int i = 0; i < unlockedSkillsTag.size(); i++) {
+                String skillStr = unlockedSkillsTag.getString(i);
+                if (!skillStr.isEmpty()) {
+                    unlockedSkills.add(new ResourceLocation(skillStr));
                 }
             }
         }

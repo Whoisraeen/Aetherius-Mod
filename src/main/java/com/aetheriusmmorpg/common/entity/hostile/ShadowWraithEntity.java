@@ -141,6 +141,9 @@ public class ShadowWraithEntity extends AetheriusMob {
     @Override
     protected void dropCustomDeathLoot(DamageSource source, int looting, boolean wasRecentlyHit) {
         super.dropCustomDeathLoot(source, looting, wasRecentlyHit);
-        // TODO: Drop spectral essence
+
+        // Drop 1-3 spectral essence (affected by looting)
+        int dropCount = 1 + this.random.nextInt(3) + looting;
+        this.spawnAtLocation(com.aetheriusmmorpg.common.registry.ModItems.SPECTRAL_ESSENCE.get(), dropCount);
     }
 }

@@ -27,6 +27,14 @@ public class ModItems {
             new Item.Properties()
         ));
 
+    // Currency
+    public static final RegistryObject<Item> GOLD_COIN = ITEMS.register("gold_coin",
+        () -> new Item(new Item.Properties().stacksTo(999)));
+
+    // Crafting Materials
+    public static final RegistryObject<Item> SPECTRAL_ESSENCE = ITEMS.register("spectral_essence",
+        () -> new Item(new Item.Properties().stacksTo(64)));
+
     // Consumables
     public static final RegistryObject<Item> HEALTH_POTION = ITEMS.register("health_potion",
         () -> new HealthPotionItem(

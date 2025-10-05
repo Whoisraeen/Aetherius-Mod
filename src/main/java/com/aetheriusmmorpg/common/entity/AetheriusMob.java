@@ -93,14 +93,21 @@ public class AetheriusMob extends Monster {
         this.xpReward = 10 + (level * 5);
     }
 
-    // Mob Type (common, elite, boss)
-    public String getMobType() {
+    // Mob Tier (common, elite, boss)
+    public String getMobTier() {
         return this.entityData.get(MOB_TYPE);
     }
 
-    public void setMobType(String type) {
+    public void setMobTier(String type) {
         this.entityData.set(MOB_TYPE, type);
         applyTypeModifiers(type);
+    }
+
+    /**
+     * Get XP reward for killing this mob.
+     */
+    public int getXpReward() {
+        return this.xpReward;
     }
 
     protected void applyTypeModifiers(String type) {
@@ -173,7 +180,7 @@ public class AetheriusMob extends Monster {
     public void addAdditionalSaveData(CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putInt("MobLevel", getMobLevel());
-        tag.putString("MobType", getMobType());
+        tag.putString("MobType", getMobTier());
     }
 
     @Override
@@ -183,17 +190,17 @@ public class AetheriusMob extends Monster {
             setMobLevel(tag.getInt("MobLevel"));
         }
         if (tag.contains("MobType")) {
-            setMobType(tag.getString("MobType"));
+            setMobTier(tag.getString("MobType"));
         }
     }
 
     /**
-     * Get custom display name with level and type.
+     * Get custom display name with level and tier.
      */
     @Override
     public net.minecraft.network.chat.Component getName() {
         String prefix = "";
-        switch (getMobType()) {
+        switch (getMobTier()) {
             case "elite": prefix = "§6[Elite] "; break;
             case "boss": prefix = "§c[Boss] "; break;
         }

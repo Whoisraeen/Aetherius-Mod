@@ -1,0 +1,108 @@
+{
+  "id": "aetherius:abyssal_depths",
+  "name": "Abyssal Depths",
+  "description": "Descend into the darkest depths where the Shadow Lord awaits. Only the strongest parties dare enter these cursed halls.",
+  "difficulty": "hard",
+  "required_level": 30,
+  "max_level": 45,
+  "min_party_size": 5,
+  "max_party_size": 8,
+  "time_limit_minutes": 60,
+  "cooldown_hours": 48,
+  "bosses": [
+    {
+      "boss_id": "corrupted_sentinel",
+      "boss_name": "Corrupted Sentinel",
+      "level": 35,
+      "phase": 1,
+      "spawn_location": "aetherius:abyssal_depths/entrance_hall",
+      "mechanics": [
+        "Corruption Aura",
+        "Shadow Strike",
+        "Void Prison"
+      ]
+    },
+    {
+      "boss_id": "shadow_lord",
+      "boss_name": "Shadow Lord",
+      "level": 40,
+      "phase": 2,
+      "spawn_location": "aetherius:abyssal_depths/shadow_throne",
+      "mechanics": [
+        "Multi-Phase Combat (4 phases)",
+        "Shadow Bolt",
+        "Summon Shadow Minions",
+        "Darkness AOE",
+        "Teleportation",
+        "Enrage Timer (15 minutes)"
+      ]
+    }
+  ],
+  "rewards": {
+    "base_experience": 3000,
+    "base_gold": 500,
+    "guaranteed_drops": [
+      {
+        "item": "minecraft:diamond",
+        "min_quantity": 10,
+        "max_quantity": 15,
+        "drop_chance": 1.0,
+        "quality": "rare"
+      },
+      {
+        "item": "minecraft:emerald",
+        "min_quantity": 8,
+        "max_quantity": 12,
+        "drop_chance": 1.0,
+        "quality": "rare"
+      },
+      {
+        "item": "minecraft:nether_star",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "drop_chance": 1.0,
+        "quality": "epic"
+      }
+    ],
+    "random_drops": [
+      {
+        "item": "minecraft:netherite_sword",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "drop_chance": 0.15,
+        "quality": "epic"
+      },
+      {
+        "item": "minecraft:netherite_chestplate",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "drop_chance": 0.1,
+        "quality": "epic"
+      },
+      {
+        "item": "minecraft:enchanted_book",
+        "min_quantity": 2,
+        "max_quantity": 4,
+        "drop_chance": 0.6,
+        "quality": "epic"
+      },
+      {
+        "item": "minecraft:totem_of_undying",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "drop_chance": 0.2,
+        "quality": "legendary"
+      },
+      {
+        "item": "minecraft:elytra",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "drop_chance": 0.05,
+        "quality": "legendary"
+      }
+    ],
+    "max_random_drops": 4
+  },
+  "structure": "aetherius:abyssal_depths",
+  "entrance_npc": "aetherius:dungeon_guide"
+}

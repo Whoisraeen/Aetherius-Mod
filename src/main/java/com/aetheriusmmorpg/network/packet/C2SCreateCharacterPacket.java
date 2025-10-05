@@ -2,10 +2,9 @@ package com.aetheriusmmorpg.network.packet;
 
 import com.aetheriusmmorpg.AetheriusMod;
 import com.aetheriusmmorpg.common.capability.player.PlayerRpgData;
-import com.aetheriusmmorpg.common.rpg.clazz.ClassManager;
+import com.aetheriusmmorpg.common.event.DatapackEvents;
 import com.aetheriusmmorpg.common.rpg.clazz.PlayerClass;
 import com.aetheriusmmorpg.common.rpg.race.Race;
-import com.aetheriusmmorpg.common.rpg.race.RaceManager;
 import com.aetheriusmmorpg.network.NetworkHandler;
 import com.aetheriusmmorpg.network.packet.S2CSkillBarPacket;
 import com.aetheriusmmorpg.network.packet.S2CStatSyncPacket;
@@ -57,8 +56,8 @@ public record C2SCreateCharacterPacket(
                     ResourceLocation raceResLoc = new ResourceLocation(raceId);
                     ResourceLocation classResLoc = new ResourceLocation(classId);
 
-                    Race race = RaceManager.getRace(raceResLoc);
-                    PlayerClass playerClass = ClassManager.getClass(classResLoc);
+                    Race race = DatapackEvents.RACE_MANAGER.getRace(raceResLoc).orElse(null);
+                    PlayerClass playerClass = DatapackEvents.CLASS_MANAGER.getPlayerClass(classResLoc).orElse(null);
 
                     if (race == null) {
                         AetheriusMod.LOGGER.error("Invalid race ID: {}", raceId);
@@ -89,10 +88,12 @@ public record C2SCreateCharacterPacket(
                     data.setCritRate(race.getBaseAttribute("crit_rate"));
                     data.setHaste(race.getBaseAttribute("haste"));
 
-                    // TODO: Save appearance data (hairStyle, skinTone) when appearance system is implemented
+                    // Save appearance data
+                    data.setHairStyle(this.hairStyle);
+                    data.setSkinTone(this.skinTone);
 
-                    AetheriusMod.LOGGER.info("Player {} created character: Race={}, Class={}",
-                        player.getName().getString(), raceId, classId);
+                    AetheriusMod.LOGGER.info("Player {} created character: Race={}, Class={}, Hair={}, Skin={}",
+                        player.getName().getString(), raceId, classId, hairStyle, skinTone);
 
                     // Sync player stats to client
                     NetworkHandler.sendToPlayer(new S2CStatSyncPacket(
@@ -111,7 +112,17 @@ public record C2SCreateCharacterPacket(
                     // Sync skill bar
                     NetworkHandler.sendToPlayer(new S2CSkillBarPacket(data.getSkillBar()), player);
 
-                    // TODO: Teleport player to their race's starting city
+                    // Teleport player to world spawn as starting location
+                    // TODO: Implement race-specific starting cities
+                    net.minecraft.core.BlockPos spawnPos = player.serverLevel().getSharedSpawnPos();
+                    player.teleportTo(
+                        player.serverLevel(),
+                        spawnPos.getX() + 0.5,
+                        spawnPos.getY(),
+                        spawnPos.getZ() + 0.5,
+                        player.getYRot(),
+                        player.getXRot()
+                    );
                     // ResourceLocation startingCity = race.startingCity();
                 });
             }

@@ -38,6 +38,14 @@ public class ModKeyBindings {
         CATEGORY
     );
 
+    public static final KeyMapping SOCIAL = new KeyMapping(
+        "key." + AetheriusMod.MOD_ID + ".social",
+        KeyConflictContext.IN_GAME,
+        InputConstants.Type.KEYSYM,
+        GLFW.GLFW_KEY_F,  // PWI default: F for friends/social
+        CATEGORY
+    );
+
     // Action bar 1 (skills 1-9)
     public static final KeyMapping[] ACTION_BAR_A = new KeyMapping[9];
 

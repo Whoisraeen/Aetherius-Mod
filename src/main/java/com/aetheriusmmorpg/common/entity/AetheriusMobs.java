@@ -41,13 +41,12 @@ public class AetheriusMobs {
 
         @Override
         protected void useSpecialAbility() {
-            if (this.getTarget() != null) {
+            LivingEntity target = this.getTarget();
+            if (target != null) {
                 // Inject poison
-                if (this.getTarget() instanceof LivingEntity living) {
-                    living.addEffect(new MobEffectInstance(MobEffects.POISON, 100, 1));
-                    living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 0));
-                    this.playSound(SoundEvents.SPIDER_HURT, 1.0F, 0.8F);
-                }
+                target.addEffect(new MobEffectInstance(MobEffects.POISON, 100, 1));
+                target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 0));
+                this.playSound(SoundEvents.SPIDER_HURT, 1.0F, 0.8F);
             }
         }
     }
@@ -70,16 +69,17 @@ public class AetheriusMobs {
 
         @Override
         protected void useSpecialAbility() {
-            if (this.getTarget() != null && this.getTarget() instanceof LivingEntity living) {
+            LivingEntity target = this.getTarget();
+            if (target != null) {
                 // Drain life
-                living.hurt(this.damageSources().magic(), 4.0F);
+                target.hurt(this.damageSources().magic(), 4.0F);
                 this.heal(2.0F);
 
                 // Spawn soul particles
                 for (int i = 0; i < 5; i++) {
                     this.level().addParticle(ParticleTypes.SOUL,
-                        living.getX(), living.getY() + 1, living.getZ(),
-                        (this.getX() - living.getX()) * 0.1, 0.1, (this.getZ() - living.getZ()) * 0.1);
+                        target.getX(), target.getY() + 1, target.getZ(),
+                        (this.getX() - target.getX()) * 0.1, 0.1, (this.getZ() - target.getZ()) * 0.1);
                 }
             }
         }
@@ -221,7 +221,7 @@ public class AetheriusMobs {
             this.level().getEntitiesOfClass(LivingEntity.class,
                 this.getBoundingBox().inflate(4.0D))
                 .stream()
-                .filter(entity -> entity != this && entity.isOnGround())
+                .filter(entity -> entity != this && entity.onGround())
                 .forEach(entity -> {
                     entity.hurt(this.damageSources().mobAttack(this), 10.0F);
                     entity.setDeltaMovement(entity.getDeltaMovement().add(0, 0.5, 0));
@@ -428,7 +428,7 @@ public class AetheriusMobs {
         public CelestialSeraph(EntityType<? extends Monster> entityType, Level level) {
             super(entityType, level);
             this.setMobLevel(100);
-            this.setMobType("elite");
+            this.setMobTier("elite");
         }
 
         public static AttributeSupplier.Builder createAttributes() {

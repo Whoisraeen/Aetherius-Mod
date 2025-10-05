@@ -1,0 +1,92 @@
+{
+  "id": "aetherius:forgotten_temple",
+  "name": "Forgotten Temple",
+  "description": "A mysterious temple guarded by ancient constructs and elemental forces. Requires coordination and strategy.",
+  "difficulty": "normal",
+  "required_level": 20,
+  "max_level": 35,
+  "min_party_size": 4,
+  "max_party_size": 6,
+  "time_limit_minutes": 45,
+  "cooldown_hours": 24,
+  "bosses": [
+    {
+      "boss_id": "frostbite_guardian",
+      "boss_name": "Frostbite Guardian",
+      "level": 25,
+      "phase": 1,
+      "spawn_location": "aetherius:forgotten_temple/frost_chamber",
+      "mechanics": [
+        "Freezing Aura",
+        "Ice Shard Barrage",
+        "Blizzard AOE"
+      ]
+    },
+    {
+      "boss_id": "temple_overseer",
+      "boss_name": "Temple Overseer",
+      "level": 30,
+      "phase": 2,
+      "spawn_location": "aetherius:forgotten_temple/throne_room",
+      "mechanics": [
+        "Energy Beam",
+        "Summon Constructs",
+        "Shield Barrier",
+        "Enrage at 30%"
+      ]
+    }
+  ],
+  "rewards": {
+    "base_experience": 1500,
+    "base_gold": 250,
+    "guaranteed_drops": [
+      {
+        "item": "minecraft:diamond",
+        "min_quantity": 5,
+        "max_quantity": 8,
+        "drop_chance": 1.0,
+        "quality": "uncommon"
+      },
+      {
+        "item": "minecraft:emerald",
+        "min_quantity": 3,
+        "max_quantity": 5,
+        "drop_chance": 1.0,
+        "quality": "rare"
+      }
+    ],
+    "random_drops": [
+      {
+        "item": "minecraft:diamond_sword",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "drop_chance": 0.25,
+        "quality": "rare"
+      },
+      {
+        "item": "minecraft:diamond_chestplate",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "drop_chance": 0.2,
+        "quality": "rare"
+      },
+      {
+        "item": "minecraft:enchanted_book",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "drop_chance": 0.4,
+        "quality": "rare"
+      },
+      {
+        "item": "minecraft:nether_star",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "drop_chance": 0.05,
+        "quality": "epic"
+      }
+    ],
+    "max_random_drops": 3
+  },
+  "structure": "aetherius:forgotten_temple",
+  "entrance_npc": "aetherius:dungeon_guide"
+}

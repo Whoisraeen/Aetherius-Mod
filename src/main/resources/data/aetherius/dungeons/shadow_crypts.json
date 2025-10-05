@@ -1,0 +1,65 @@
+{
+  "id": "aetherius:shadow_crypts",
+  "name": "Shadow Crypts",
+  "description": "Ancient crypts filled with undead and shadow creatures. A good starter dungeon for new adventurers.",
+  "difficulty": "easy",
+  "required_level": 10,
+  "max_level": 20,
+  "min_party_size": 3,
+  "max_party_size": 5,
+  "time_limit_minutes": 30,
+  "cooldown_hours": 24,
+  "bosses": [
+    {
+      "boss_id": "shadow_wraith_alpha",
+      "boss_name": "Alpha Shadow Wraith",
+      "level": 15,
+      "phase": 1,
+      "spawn_location": "aetherius:shadow_crypts/boss_room",
+      "mechanics": [
+        "Life Drain",
+        "Shadow Bolt",
+        "Invisibility"
+      ]
+    }
+  ],
+  "rewards": {
+    "base_experience": 500,
+    "base_gold": 100,
+    "guaranteed_drops": [
+      {
+        "item": "minecraft:diamond",
+        "min_quantity": 2,
+        "max_quantity": 4,
+        "drop_chance": 1.0,
+        "quality": "uncommon"
+      }
+    ],
+    "random_drops": [
+      {
+        "item": "minecraft:iron_sword",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "drop_chance": 0.3,
+        "quality": "common"
+      },
+      {
+        "item": "minecraft:golden_apple",
+        "min_quantity": 1,
+        "max_quantity": 3,
+        "drop_chance": 0.5,
+        "quality": "uncommon"
+      },
+      {
+        "item": "minecraft:enchanted_book",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "drop_chance": 0.1,
+        "quality": "rare"
+      }
+    ],
+    "max_random_drops": 2
+  },
+  "structure": "aetherius:shadow_crypts",
+  "entrance_npc": "aetherius:dungeon_guide"
+}

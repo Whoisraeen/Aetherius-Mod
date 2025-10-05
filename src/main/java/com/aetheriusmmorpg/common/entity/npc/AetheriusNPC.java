@@ -81,17 +81,17 @@ public class AetheriusNPC extends PathfinderMob {
         this.entityData.set(NPC_TYPE, type.name());
     }
 
-    public String getDisplayName() {
+    public String getNpcDisplayName() {
         return this.entityData.get(DISPLAY_NAME);
     }
 
-    public void setDisplayName(String name) {
+    public void setNpcDisplayName(String name) {
         this.entityData.set(DISPLAY_NAME, name);
     }
 
     @Override
     public Component getName() {
-        String name = getDisplayName();
+        String name = getNpcDisplayName();
         String typePrefix = switch (getNPCType()) {
             case QUEST_GIVER -> "§e[!] ";
             case MERCHANT -> "§6[Shop] ";
@@ -137,26 +137,26 @@ public class AetheriusNPC extends PathfinderMob {
 
     protected void openQuestDialog(Player player) {
         // TODO: Open quest dialog GUI
-        player.sendSystemMessage(Component.literal("§e" + getDisplayName() + "§f: I have a quest for you!"));
+        player.sendSystemMessage(Component.literal("§e" + getNpcDisplayName() + "§f: I have a quest for you!"));
     }
 
     protected void openMerchantDialog(Player player) {
         // TODO: Open merchant GUI
-        player.sendSystemMessage(Component.literal("§6" + getDisplayName() + "§f: Welcome to my shop!"));
+        player.sendSystemMessage(Component.literal("§6" + getNpcDisplayName() + "§f: Welcome to my shop!"));
     }
 
     protected void openTrainerDialog(Player player) {
         // TODO: Open skill trainer GUI
-        player.sendSystemMessage(Component.literal("§b" + getDisplayName() + "§f: I can teach you new skills."));
+        player.sendSystemMessage(Component.literal("§b" + getNpcDisplayName() + "§f: I can teach you new skills."));
     }
 
     protected void openGuildDialog(Player player) {
         // TODO: Open guild GUI
-        player.sendSystemMessage(Component.literal("§5" + getDisplayName() + "§f: Join our guild!"));
+        player.sendSystemMessage(Component.literal("§5" + getNpcDisplayName() + "§f: Join our guild!"));
     }
 
     protected void openGenericDialog(Player player) {
-        player.sendSystemMessage(Component.literal("§f" + getDisplayName() + "§f: Hello, traveler!"));
+        player.sendSystemMessage(Component.literal("§f" + getNpcDisplayName() + "§f: Hello, traveler!"));
     }
 
     @Override
@@ -174,7 +174,7 @@ public class AetheriusNPC extends PathfinderMob {
         super.addAdditionalSaveData(tag);
         tag.putString("NPCId", getNPCId());
         tag.putString("NPCType", getNPCType().name());
-        tag.putString("DisplayName", getDisplayName());
+        tag.putString("DisplayName", getNpcDisplayName());
     }
 
     @Override
@@ -189,7 +189,7 @@ public class AetheriusNPC extends PathfinderMob {
             } catch (IllegalArgumentException ignored) {}
         }
         if (tag.contains("DisplayName")) {
-            setDisplayName(tag.getString("DisplayName"));
+            setNpcDisplayName(tag.getString("DisplayName"));
         }
     }
 

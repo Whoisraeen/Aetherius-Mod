@@ -95,9 +95,9 @@ public class QuestGiverNPC extends AetheriusNPC {
             }
 
             if (offeredQuests.isEmpty()) {
-                player.sendSystemMessage(Component.literal("§e" + getDisplayName() + "§f: " + noQuestsMessage));
+                player.sendSystemMessage(Component.literal("§e" + getNpcDisplayName() + "§f: " + noQuestsMessage));
             } else {
-                player.sendSystemMessage(Component.literal("§e" + getDisplayName() + "§f: " + greetingMessage));
+                player.sendSystemMessage(Component.literal("§e" + getNpcDisplayName() + "§f: " + greetingMessage));
 
                 // Show first available quest (in full implementation, would open GUI)
                 Quest quest = offeredQuests.get(0);
@@ -133,19 +133,22 @@ public class QuestGiverNPC extends AetheriusNPC {
             player.sendSystemMessage(Component.literal("§6+§f" + quest.rewards().gold() + " Gold"));
         }
 
-        // Give item rewards
-        quest.rewards().items().forEach(itemReward -> {
-            // TODO: Give actual items to player
-            player.sendSystemMessage(Component.literal("§b+§f" + itemReward.quantity() + "x " + itemReward.itemId()));
-        });
+        // Give item rewards (player is guaranteed to be ServerPlayer on server side)
+        if (player instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
+            quest.rewards().items().forEach(itemReward -> {
+                com.aetheriusmmorpg.common.util.ItemRewardUtil.giveItems(serverPlayer, itemReward.itemId(), itemReward.quantity());
+                player.sendSystemMessage(Component.literal("§b+§f" + itemReward.quantity() + "x " + itemReward.itemId()));
+            });
+        }
 
         // Unlock skills
         quest.rewards().skills().forEach((skillId, level) -> {
-            // TODO: Unlock skill for player
+            // Add skill to player's unlocked skills
+            data.unlockSkill(skillId);
             player.sendSystemMessage(Component.literal("§dUnlocked Skill: §f" + skillId));
         });
 
-        player.sendSystemMessage(Component.literal("§e" + getDisplayName() + "§f: " + questCompleteMessage));
+        player.sendSystemMessage(Component.literal("§e" + getNpcDisplayName() + "§f: " + questCompleteMessage));
         player.sendSystemMessage(Component.literal("§aQuest Completed: §f" + quest.name()));
     }
 

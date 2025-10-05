@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(./gradlew build:*)",
-      "Bash(./gradlew:*)"
+      "Bash(./gradlew:*)",
+      "Bash(.gradlew compileJava)",
+      "Bash(./gradlew.bat compileJava:*)"
     ],
     "deny": [],
     "ask": []

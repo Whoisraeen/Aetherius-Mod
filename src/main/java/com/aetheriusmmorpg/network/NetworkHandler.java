@@ -10,6 +10,11 @@ import com.aetheriusmmorpg.network.packet.S2COpenIntroVideoPacket;
 import com.aetheriusmmorpg.network.packet.S2CStatSyncPacket;
 import com.aetheriusmmorpg.network.packet.S2CCooldownPacket;
 import com.aetheriusmmorpg.network.packet.S2CSkillBarPacket;
+import com.aetheriusmmorpg.network.packet.party.C2SPartyActionPacket;
+import com.aetheriusmmorpg.network.packet.party.S2CPartyInvitePacket;
+import com.aetheriusmmorpg.network.packet.party.S2CPartyUpdatePacket;
+import com.aetheriusmmorpg.network.packet.friend.C2SFriendActionPacket;
+import com.aetheriusmmorpg.network.packet.friend.S2CFriendListSyncPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
@@ -98,6 +103,38 @@ public class NetworkHandler {
             .decoder(C2SCreateCharacterPacket::new)
             .encoder(C2SCreateCharacterPacket::encode)
             .consumerMainThread(C2SCreateCharacterPacket::handle)
+            .add();
+
+        // Party System packets
+        INSTANCE.messageBuilder(S2CPartyInvitePacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+            .decoder(S2CPartyInvitePacket::new)
+            .encoder(S2CPartyInvitePacket::encode)
+            .consumerMainThread(S2CPartyInvitePacket::handle)
+            .add();
+
+        INSTANCE.messageBuilder(S2CPartyUpdatePacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+            .decoder(S2CPartyUpdatePacket::new)
+            .encoder(S2CPartyUpdatePacket::encode)
+            .consumerMainThread(S2CPartyUpdatePacket::handle)
+            .add();
+
+        INSTANCE.messageBuilder(C2SPartyActionPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+            .decoder(C2SPartyActionPacket::new)
+            .encoder(C2SPartyActionPacket::encode)
+            .consumerMainThread(C2SPartyActionPacket::handle)
+            .add();
+
+        // Friend System packets
+        INSTANCE.messageBuilder(S2CFriendListSyncPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+            .decoder(S2CFriendListSyncPacket::new)
+            .encoder(S2CFriendListSyncPacket::encode)
+            .consumerMainThread(S2CFriendListSyncPacket::handle)
+            .add();
+
+        INSTANCE.messageBuilder(C2SFriendActionPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+            .decoder(C2SFriendActionPacket::new)
+            .encoder(C2SFriendActionPacket::encode)
+            .consumerMainThread(C2SFriendActionPacket::handle)
             .add();
 
         AetheriusMod.LOGGER.info("Registered {} network packets", packetId);

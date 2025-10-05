@@ -1,11 +1,10 @@
 package com.aetheriusmmorpg.client.ui.screen;
 
 import com.aetheriusmmorpg.AetheriusMod;
+import com.aetheriusmmorpg.common.event.DatapackEvents;
 import com.aetheriusmmorpg.common.menu.CharacterCreationMenu;
-import com.aetheriusmmorpg.common.rpg.clazz.ClassManager;
 import com.aetheriusmmorpg.common.rpg.clazz.PlayerClass;
 import com.aetheriusmmorpg.common.rpg.race.Race;
-import com.aetheriusmmorpg.common.rpg.race.RaceManager;
 import com.aetheriusmmorpg.network.NetworkHandler;
 import com.aetheriusmmorpg.network.packet.C2SCreateCharacterPacket;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -47,7 +46,7 @@ public class CharacterCreationScreen extends AbstractContainerScreen<CharacterCr
         this.imageHeight = PANEL_HEIGHT;
 
         // Load available races and classes
-        availableRaces.addAll(RaceManager.getAllRaces());
+        availableRaces.addAll(DatapackEvents.RACE_MANAGER.getAllRaces().values());
         if (!availableRaces.isEmpty()) {
             selectedRace = availableRaces.get(0);
             updateAvailableClasses();
@@ -152,7 +151,7 @@ public class CharacterCreationScreen extends AbstractContainerScreen<CharacterCr
     private void updateAvailableClasses() {
         availableClasses.clear();
         if (selectedRace != null) {
-            for (PlayerClass playerClass : ClassManager.getAllClasses()) {
+            for (PlayerClass playerClass : DatapackEvents.CLASS_MANAGER.getAllClasses().values()) {
                 if (selectedRace.canUseClass(playerClass.id())) {
                     availableClasses.add(playerClass);
                 }

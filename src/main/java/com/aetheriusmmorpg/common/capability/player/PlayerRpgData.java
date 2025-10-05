@@ -33,6 +33,12 @@ public interface PlayerRpgData extends INBTSerializable<CompoundTag> {
     String getClassId();
     void setClassId(String classId);
 
+    // Appearance
+    int getHairStyle();
+    void setHairStyle(int hairStyle);
+    int getSkinTone();
+    void setSkinTone(int skinTone);
+
     // Custom Attributes (base values, modifiers applied through attribute system)
     double getPower();
     void setPower(double power);
@@ -110,6 +116,21 @@ public interface PlayerRpgData extends INBTSerializable<CompoundTag> {
      * @param skillBar Array of 9 skill IDs
      */
     void setSkillBar(net.minecraft.resources.ResourceLocation[] skillBar);
+
+    /**
+     * Get all unlocked skills.
+     */
+    java.util.Set<net.minecraft.resources.ResourceLocation> getUnlockedSkills();
+
+    /**
+     * Unlock a skill for the player.
+     */
+    void unlockSkill(net.minecraft.resources.ResourceLocation skillId);
+
+    /**
+     * Check if a skill is unlocked.
+     */
+    boolean isSkillUnlocked(net.minecraft.resources.ResourceLocation skillId);
 
     // Quests
     /**
