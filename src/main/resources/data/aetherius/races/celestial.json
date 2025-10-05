@@ -1,0 +1,22 @@
+{
+  "id": "aetherius:celestial",
+  "name": "Celestial",
+  "description": "Divine beings from the heavens. Blessed with holy magic and archery prowess.",
+  "base_attributes": {
+    "power": 10.0,
+    "spirit": 13.0,
+    "agility": 12.0,
+    "defense": 9.0,
+    "crit_rate": 6.0,
+    "haste": 2.0
+  },
+  "allowed_classes": [
+    "aetherius:windrunner",
+    "aetherius:seraph"
+  ],
+  "passive_abilities": [
+    "Divine Grace: +10% healing effectiveness",
+    "Wings of Light: Reduced fall damage"
+  ],
+  "starting_city": "aetherius:solanium"
+}

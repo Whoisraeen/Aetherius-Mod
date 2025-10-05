@@ -1,0 +1,23 @@
+{
+  "id": "aetherius:artificer",
+  "name": "Artificer",
+  "description": "Tech-magic hybrid supporting allies with gadgets and constructs. Versatile utility class.",
+  "role": "SUPPORT",
+  "attribute_growth": {
+    "power": 0.8,
+    "spirit": 1.0,
+    "agility": 0.7,
+    "defense": 0.8,
+    "crit_rate": 0.3,
+    "haste": 0.4
+  },
+  "available_skills": [
+    "aetherius:healing_touch",
+    "aetherius:battle_stance",
+    "aetherius:arcane_bolt"
+  ],
+  "weapon_proficiencies": {
+    "crossbows": "master",
+    "wands": "proficient"
+  }
+}

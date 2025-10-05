@@ -1,0 +1,24 @@
+{
+  "id": "aetherius:lions_roar",
+  "name": "Lion's Roar",
+  "description": "AOE stun that disorients nearby enemies",
+  "icon": "minecraft:goat_horn",
+  "cooldown_ticks": 200,
+  "mana_cost": 30,
+  "cast_time_ticks": 20,
+  "max_range": 8,
+  "required_level": 5,
+  "effects": [
+    {
+      "type": "stun",
+      "duration_ticks": 60,
+      "particles": "minecraft:sonic_boom"
+    },
+    {
+      "type": "damage",
+      "amount": 8.0,
+      "damage_type": "magic"
+    }
+  ],
+  "sound": "minecraft:entity.warden.roar"
+}

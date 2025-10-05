@@ -1,0 +1,24 @@
+{
+  "id": "aetherius:ranger",
+  "name": "Ranger",
+  "description": "Ranged physical DPS with high mobility. Excels at kiting and sustained ranged damage.",
+  "role": "DPS",
+  "attribute_growth": {
+    "power": 1.1,
+    "spirit": 0.4,
+    "agility": 1.3,
+    "defense": 0.7,
+    "crit_rate": 0.4,
+    "haste": 0.3
+  },
+  "available_skills": [
+    "aetherius:arcane_bolt",
+    "aetherius:flame_dot",
+    "aetherius:thunderclap"
+  ],
+  "weapon_proficiencies": {
+    "bows": "master",
+    "crossbows": "proficient",
+    "daggers": "proficient"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "id": "aetherius:meteor_strike",
+  "name": "Meteor Strike",
+  "description": "Call down a meteor from the heavens, devastating all enemies in the target area.",
+  "target_type": "AOE_CIRCLE",
+  "range": 40.0,
+  "cooldown": 180,
+  "cast_time": 40,
+  "cost": {
+    "mana": 100
+  },
+  "effects": [
+    {
+      "type": "DAMAGE",
+      "base_power": 120.0,
+      "scaling": 2.0,
+      "scaling_stat": "spirit"
+    },
+    {
+      "type": "KNOCKBACK",
+      "base_power": 5.0
+    }
+  ]
+}

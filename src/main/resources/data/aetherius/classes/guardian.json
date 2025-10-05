@@ -1,0 +1,24 @@
+{
+  "id": "aetherius:guardian",
+  "name": "Guardian",
+  "description": "Heavy armor tank specializing in protecting allies and absorbing damage. High survivability.",
+  "role": "TANK",
+  "attribute_growth": {
+    "power": 0.7,
+    "spirit": 0.5,
+    "agility": 0.4,
+    "defense": 1.5,
+    "crit_rate": 0.1,
+    "haste": 0.2
+  },
+  "available_skills": [
+    "aetherius:battle_stance",
+    "aetherius:healing_touch",
+    "aetherius:thunderclap"
+  ],
+  "weapon_proficiencies": {
+    "shields": "master",
+    "maces": "proficient",
+    "swords": "proficient"
+  }
+}

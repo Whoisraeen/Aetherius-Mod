@@ -1,0 +1,23 @@
+{
+  "id": "aetherius:reaver",
+  "name": "Reaver",
+  "description": "Dark warrior draining life from enemies. Balances offense with self-sustain through lifesteal.",
+  "role": "DPS",
+  "attribute_growth": {
+    "power": 1.1,
+    "spirit": 0.8,
+    "agility": 0.7,
+    "defense": 0.9,
+    "crit_rate": 0.3,
+    "haste": 0.2
+  },
+  "available_skills": [
+    "aetherius:flame_dot",
+    "aetherius:healing_touch",
+    "aetherius:meteor_strike"
+  ],
+  "weapon_proficiencies": {
+    "scythes": "master",
+    "swords": "proficient"
+  }
+}

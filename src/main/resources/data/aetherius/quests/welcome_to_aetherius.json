@@ -1,0 +1,39 @@
+{
+  "id": "aetherius:welcome_to_aetherius",
+  "name": "Welcome to Aetherius",
+  "description": "Begin your journey in the realm of Aetherius by meeting the local inhabitants.",
+  "type": "MAIN",
+  "required_level": 1,
+  "quest_giver": "elder_sage",
+  "repeatable": false,
+  "time_limit": 0,
+  "objectives": [
+    {
+      "type": "INTERACT",
+      "target": "minecraft:villager",
+      "required_amount": 1,
+      "description": "Speak with the Village Elder"
+    },
+    {
+      "type": "DISCOVER",
+      "target": "aetherius:verdantra_city",
+      "required_amount": 1,
+      "description": "Discover Verdantra City"
+    }
+  ],
+  "rewards": {
+    "experience": 100,
+    "gold": 50,
+    "items": [
+      {
+        "item": "minecraft:iron_sword",
+        "quantity": 1
+      },
+      {
+        "item": "minecraft:bread",
+        "quantity": 5
+      }
+    ],
+    "skills": {}
+  }
+}

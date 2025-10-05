@@ -1,0 +1,19 @@
+{
+  "id": "aetherius:battle_stance",
+  "name": "Battle Stance",
+  "description": "Enter a powerful battle stance, increasing your damage but reducing defense.",
+  "target_type": "SELF",
+  "range": 0.0,
+  "cooldown": 60,
+  "cast_time": 0,
+  "cost": {
+    "energy": 20
+  },
+  "effects": [
+    {
+      "type": "BUFF",
+      "base_power": 30.0,
+      "duration": 200
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "id": "aetherius:spellweaver",
+  "name": "Spellweaver",
+  "description": "Pure magic DPS focusing on elemental spells. High sustained damage from range.",
+  "role": "DPS",
+  "attribute_growth": {
+    "power": 0.6,
+    "spirit": 1.5,
+    "agility": 0.6,
+    "defense": 0.5,
+    "crit_rate": 0.4,
+    "haste": 0.3
+  },
+  "available_skills": [
+    "aetherius:arcane_bolt",
+    "aetherius:flame_dot",
+    "aetherius:meteor_strike"
+  ],
+  "weapon_proficiencies": {
+    "staves": "master",
+    "wands": "proficient"
+  }
+}

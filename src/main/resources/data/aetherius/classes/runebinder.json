@@ -1,0 +1,23 @@
+{
+  "id": "aetherius:runebinder",
+  "name": "Runebinder",
+  "description": "Support mage specializing in buffs, debuffs, and crowd control. Enhances team effectiveness.",
+  "role": "SUPPORT",
+  "attribute_growth": {
+    "power": 0.6,
+    "spirit": 1.2,
+    "agility": 0.7,
+    "defense": 0.7,
+    "crit_rate": 0.3,
+    "haste": 0.3
+  },
+  "available_skills": [
+    "aetherius:battle_stance",
+    "aetherius:arcane_bolt",
+    "aetherius:thunderclap"
+  ],
+  "weapon_proficiencies": {
+    "staves": "master",
+    "wands": "proficient"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "id": "aetherius:terran",
+  "name": "Terran",
+  "description": "Steadfast humanoids attuned to earth and nature. Strong defenders and healers.",
+  "base_attributes": {
+    "power": 12.0,
+    "spirit": 11.0,
+    "agility": 9.0,
+    "defense": 13.0,
+    "crit_rate": 4.0,
+    "haste": 1.0
+  },
+  "allowed_classes": [
+    "aetherius:sentinel",
+    "aetherius:natures_oracle"
+  ],
+  "passive_abilities": [
+    "Stone Skin: +10% physical damage reduction",
+    "Nature's Bond: +5% health regeneration"
+  ],
+  "starting_city": "aetherius:ironhall"
+}

@@ -1,0 +1,22 @@
+{
+  "id": "aetherius:umbral",
+  "name": "Umbral",
+  "description": "Dark elves shrouded in shadow magic. Masters of stealth and elemental destruction.",
+  "base_attributes": {
+    "power": 11.0,
+    "spirit": 13.0,
+    "agility": 11.0,
+    "defense": 9.0,
+    "crit_rate": 7.0,
+    "haste": 3.0
+  },
+  "allowed_classes": [
+    "aetherius:nightblade",
+    "aetherius:tempestcaller"
+  ],
+  "passive_abilities": [
+    "Shadow Affinity: +10% dark magic damage",
+    "Nightvision: See clearly in darkness"
+  ],
+  "starting_city": "aetherius:thornspire"
+}

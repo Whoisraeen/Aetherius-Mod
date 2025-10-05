@@ -1,0 +1,21 @@
+{
+  "id": "aetherius:swordsmanship",
+  "name": "Swordsmanship",
+  "description": "Increases damage with swords",
+  "icon": "minecraft:iron_sword",
+  "cooldown_ticks": 0,
+  "mana_cost": 0,
+  "cast_time_ticks": 0,
+  "max_range": 0,
+  "required_level": 1,
+  "effects": [
+    {
+      "type": "buff",
+      "attribute": "attack_damage",
+      "value": 2.0,
+      "duration_ticks": 6000,
+      "particles": "minecraft:crit"
+    }
+  ],
+  "sound": "minecraft:entity.player.attack.strong"
+}

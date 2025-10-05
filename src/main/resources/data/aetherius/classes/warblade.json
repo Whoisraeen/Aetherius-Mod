@@ -1,0 +1,24 @@
+{
+  "id": "aetherius:warblade",
+  "name": "Warblade",
+  "description": "Melee DPS specialist wielding blades with magical enhancements. High burst damage.",
+  "role": "DPS",
+  "attribute_growth": {
+    "power": 1.2,
+    "spirit": 0.5,
+    "agility": 1.0,
+    "defense": 0.7,
+    "crit_rate": 0.3,
+    "haste": 0.2
+  },
+  "available_skills": [
+    "aetherius:arcane_bolt",
+    "aetherius:flame_dot",
+    "aetherius:thunderclap",
+    "aetherius:meteor_strike"
+  ],
+  "weapon_proficiencies": {
+    "swords": "master",
+    "daggers": "proficient"
+  }
+}

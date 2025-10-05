@@ -1,0 +1,38 @@
+{
+  "id": "aetherius:shadow_threat",
+  "name": "Shadow Threat",
+  "description": "Eliminate the Shadow Wraiths that have been terrorizing travelers on the road.",
+  "type": "SIDE",
+  "required_level": 10,
+  "prerequisite_quest": "aetherius:welcome_to_aetherius",
+  "quest_giver": "guard_captain",
+  "repeatable": false,
+  "time_limit": 0,
+  "objectives": [
+    {
+      "type": "KILL",
+      "target": "aetherius:shadow_wraith",
+      "required_amount": 5,
+      "description": "Defeat Shadow Wraiths"
+    },
+    {
+      "type": "COLLECT",
+      "target": "aetherius:spectral_essence",
+      "required_amount": 3,
+      "description": "Collect Spectral Essence"
+    }
+  ],
+  "rewards": {
+    "experience": 500,
+    "gold": 200,
+    "items": [
+      {
+        "item": "minecraft:diamond_sword",
+        "quantity": 1
+      }
+    ],
+    "skills": {
+      "aetherius:shadow_strike": 1
+    }
+  }
+}

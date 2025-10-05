@@ -1,0 +1,25 @@
+{
+  "id": "aetherius:thunderclap",
+  "name": "Thunderclap",
+  "description": "Unleash a thunderous shockwave that stuns enemies in a cone.",
+  "target_type": "AOE_CONE",
+  "range": 12.0,
+  "cooldown": 120,
+  "cast_time": 10,
+  "cost": {
+    "mana": 50
+  },
+  "effects": [
+    {
+      "type": "DAMAGE",
+      "base_power": 40.0,
+      "scaling": 1.0,
+      "scaling_stat": "power"
+    },
+    {
+      "type": "STUN",
+      "base_power": 1.0,
+      "duration": 40
+    }
+  ]
+}

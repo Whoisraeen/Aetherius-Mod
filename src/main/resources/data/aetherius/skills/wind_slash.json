@@ -1,0 +1,24 @@
+{
+  "id": "aetherius:wind_slash",
+  "name": "Wind Slash",
+  "description": "Single target stun attack",
+  "icon": "minecraft:feather",
+  "cooldown_ticks": 100,
+  "mana_cost": 20,
+  "cast_time_ticks": 10,
+  "max_range": 12,
+  "required_level": 3,
+  "effects": [
+    {
+      "type": "damage",
+      "amount": 12.0,
+      "damage_type": "physical"
+    },
+    {
+      "type": "stun",
+      "duration_ticks": 40,
+      "particles": "minecraft:sweep_attack"
+    }
+  ],
+  "sound": "minecraft:entity.player.attack.sweep"
+}

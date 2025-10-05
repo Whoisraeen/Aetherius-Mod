@@ -1,0 +1,23 @@
+{
+  "id": "aetherius:psion",
+  "name": "Psion",
+  "description": "Psychic damage dealer manipulating minds and souls. High burst and control potential.",
+  "role": "DPS",
+  "attribute_growth": {
+    "power": 0.5,
+    "spirit": 1.4,
+    "agility": 0.8,
+    "defense": 0.5,
+    "crit_rate": 0.5,
+    "haste": 0.2
+  },
+  "available_skills": [
+    "aetherius:arcane_bolt",
+    "aetherius:flame_dot",
+    "aetherius:meteor_strike"
+  ],
+  "weapon_proficiencies": {
+    "wands": "master",
+    "staves": "proficient"
+  }
+}

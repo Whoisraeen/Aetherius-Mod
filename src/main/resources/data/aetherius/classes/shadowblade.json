@@ -1,0 +1,23 @@
+{
+  "id": "aetherius:shadowblade",
+  "name": "Shadowblade",
+  "description": "Stealthy assassin with high critical strikes and mobility. Excels at single-target burst damage.",
+  "role": "DPS",
+  "attribute_growth": {
+    "power": 1.0,
+    "spirit": 0.5,
+    "agility": 1.4,
+    "defense": 0.6,
+    "crit_rate": 0.5,
+    "haste": 0.4
+  },
+  "available_skills": [
+    "aetherius:arcane_bolt",
+    "aetherius:flame_dot",
+    "aetherius:thunderclap"
+  ],
+  "weapon_proficiencies": {
+    "daggers": "master",
+    "swords": "proficient"
+  }
+}

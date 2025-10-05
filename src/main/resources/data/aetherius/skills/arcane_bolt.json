@@ -1,0 +1,20 @@
+{
+  "id": "aetherius:arcane_bolt",
+  "name": "Arcane Bolt",
+  "description": "Fire a bolt of pure arcane energy at your target, dealing instant magic damage.",
+  "target_type": "SINGLE",
+  "range": 30.0,
+  "cooldown": 40,
+  "cast_time": 0,
+  "cost": {
+    "mana": 20
+  },
+  "effects": [
+    {
+      "type": "DAMAGE",
+      "base_power": 50.0,
+      "scaling": 1.5,
+      "scaling_stat": "spirit"
+    }
+  ]
+}

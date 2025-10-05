@@ -1,0 +1,22 @@
+{
+  "id": "aetherius:aquafae",
+  "name": "Aquafae",
+  "description": "Mysterious merfolk adapted to underwater life. Excel at stealth and psychic abilities.",
+  "base_attributes": {
+    "power": 11.0,
+    "spirit": 12.0,
+    "agility": 13.0,
+    "defense": 8.0,
+    "crit_rate": 8.0,
+    "haste": 2.0
+  },
+  "allowed_classes": [
+    "aetherius:shadowblade",
+    "aetherius:mindbender"
+  ],
+  "passive_abilities": [
+    "Aquatic Mastery: Swim speed +50%, breathe underwater",
+    "Shadow Veil: +10% stealth effectiveness"
+  ],
+  "starting_city": "aetherius:abyssia"
+}

@@ -1,0 +1,22 @@
+{
+  "id": "aetherius:seraph",
+  "name": "Seraph",
+  "description": "Divine healer and support class. Keeps allies alive with holy magic.",
+  "role": "HEALER",
+  "attribute_growth": {
+    "power": 0.5,
+    "spirit": 1.4,
+    "agility": 0.7,
+    "defense": 0.8,
+    "crit_rate": 0.2,
+    "haste": 0.3
+  },
+  "available_skills": [
+    "aetherius:healing_touch",
+    "aetherius:battle_stance"
+  ],
+  "weapon_proficiencies": {
+    "staves": "proficient",
+    "maces": "proficient"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "id": "aetherius:beastlord",
+  "name": "Beastlord",
+  "description": "Melee fighter with beast companion. Buffs allies and deals physical damage.",
+  "role": "SUPPORT",
+  "attribute_growth": {
+    "power": 1.1,
+    "spirit": 0.7,
+    "agility": 1.0,
+    "defense": 0.9,
+    "crit_rate": 0.3,
+    "haste": 0.2
+  },
+  "available_skills": [
+    "aetherius:thunderclap",
+    "aetherius:battle_stance"
+  ],
+  "weapon_proficiencies": {
+    "axes": "master",
+    "fists": "proficient"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "id": "aetherius:lycan",
+  "name": "Lycan",
+  "description": "Fierce beastkin with primal strength and agility. Masters of melee combat and transformation.",
+  "base_attributes": {
+    "power": 13.0,
+    "spirit": 9.0,
+    "agility": 13.0,
+    "defense": 10.0,
+    "crit_rate": 7.0,
+    "haste": 3.0
+  },
+  "allowed_classes": [
+    "aetherius:beastlord",
+    "aetherius:shapeshifter"
+  ],
+  "passive_abilities": [
+    "Primal Fury: +10% critical damage",
+    "Beast Senses: Enhanced tracking and detection"
+  ],
+  "starting_city": "aetherius:beastden"
+}

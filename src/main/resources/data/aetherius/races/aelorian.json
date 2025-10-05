@@ -1,0 +1,22 @@
+{
+  "id": "aetherius:aelorian",
+  "name": "Aelorian",
+  "description": "Graceful humanoids attuned to magic and nature. Excel at spellcasting and agility.",
+  "base_attributes": {
+    "power": 8.0,
+    "spirit": 14.0,
+    "agility": 12.0,
+    "defense": 8.0,
+    "crit_rate": 5.0,
+    "haste": 2.0
+  },
+  "allowed_classes": [
+    "aetherius:warblade",
+    "aetherius:spellweaver"
+  ],
+  "passive_abilities": [
+    "Mana Affinity: +10% spell power",
+    "Swift Step: +5% movement speed"
+  ],
+  "starting_city": "aetherius:verdantra"
+}

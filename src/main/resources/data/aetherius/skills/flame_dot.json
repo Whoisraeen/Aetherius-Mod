@@ -1,0 +1,22 @@
+{
+  "id": "aetherius:flame_dot",
+  "name": "Flame DOT",
+  "description": "Ignite your enemy with searing flames that burn over time.",
+  "target_type": "SINGLE",
+  "range": 25.0,
+  "cooldown": 100,
+  "cast_time": 20,
+  "cost": {
+    "mana": 30
+  },
+  "effects": [
+    {
+      "type": "DOT",
+      "base_power": 15.0,
+      "scaling": 0.8,
+      "scaling_stat": "spirit",
+      "duration": 100,
+      "tick_interval": 20
+    }
+  ]
+}

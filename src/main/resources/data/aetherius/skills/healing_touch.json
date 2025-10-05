@@ -1,0 +1,22 @@
+{
+  "id": "aetherius:healing_touch",
+  "name": "Healing Touch",
+  "description": "Channel divine energy to heal an ally over time.",
+  "target_type": "SINGLE",
+  "range": 20.0,
+  "cooldown": 80,
+  "cast_time": 0,
+  "cost": {
+    "mana": 40
+  },
+  "effects": [
+    {
+      "type": "HOT",
+      "base_power": 20.0,
+      "scaling": 1.2,
+      "scaling_stat": "spirit",
+      "duration": 100,
+      "tick_interval": 20
+    }
+  ]
+}
