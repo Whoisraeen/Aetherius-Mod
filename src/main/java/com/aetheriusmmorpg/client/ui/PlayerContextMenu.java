@@ -123,7 +123,10 @@ public class PlayerContextMenu extends Screen {
         options.add(new MenuOption(
             "§eRequest Trade",
             () -> {
-                // TODO: Send trade request packet
+                // Send trade request packet
+                com.aetheriusmmorpg.network.NetworkHandler.sendToServer(
+                    com.aetheriusmmorpg.network.packet.trade.C2STradeRequestPacket.request(targetPlayer.getUUID())
+                );
                 localPlayer.sendSystemMessage(Component.literal("§aTrade request sent to " + targetPlayer.getName().getString()));
                 this.onClose();
             }
@@ -143,7 +146,8 @@ public class PlayerContextMenu extends Screen {
         options.add(new MenuOption(
             "§7View Profile",
             () -> {
-                // TODO: Open player profile screen
+                // Open player profile screen
+                minecraft.setScreen(new com.aetheriusmmorpg.client.ui.screen.PlayerProfileScreen(targetPlayer));
                 localPlayer.sendSystemMessage(Component.literal("§7Viewing " + targetPlayer.getName().getString() + "'s profile"));
                 this.onClose();
             }

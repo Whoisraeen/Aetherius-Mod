@@ -100,9 +100,9 @@ public class SocialScreen extends Screen {
             case FRIENDS:
                 addFriendButton = Button.builder(Component.literal("Add Friend"),
                     btn -> {
-                        // TODO: Open add friend dialog
-                        if (minecraft != null && minecraft.player != null) {
-                            minecraft.player.sendSystemMessage(Component.literal("§eAdd Friend dialog not yet implemented"));
+                        // Open add friend dialog
+                        if (minecraft != null) {
+                            minecraft.setScreen(new com.aetheriusmmorpg.client.ui.screen.AddFriendDialog());
                         }
                     })
                     .bounds(windowX + 10, buttonY, 100, 20)
@@ -126,7 +126,22 @@ public class SocialScreen extends Screen {
                 break;
 
             case GUILD:
-                // TODO: Guild buttons
+                // Guild button - open guild screen
+                if (com.aetheriusmmorpg.client.ClientGuildData.hasGuild()) {
+                    // View guild button
+                    Button viewGuildButton = Button.builder(Component.literal("View Guild"),
+                        btn -> {
+                            if (minecraft != null && minecraft.player != null) {
+                                minecraft.player.openMenu(new net.minecraft.world.SimpleMenuProvider(
+                                    (containerId, playerInventory, player) -> new com.aetheriusmmorpg.common.menu.GuildMenu(containerId, playerInventory),
+                                    Component.literal("Guild")
+                                ));
+                            }
+                        })
+                        .bounds(windowX + 10, buttonY, 100, 20)
+                        .build();
+                    addWidget(viewGuildButton);
+                }
                 break;
         }
     }
@@ -301,9 +316,34 @@ public class SocialScreen extends Screen {
     private void renderGuildTab(GuiGraphics guiGraphics, int mouseX, int mouseY) {
         int yPos = windowY + TAB_HEIGHT + 10;
 
-        // Guild system not yet implemented
-        Component message = Component.literal("§7Guild system not yet available");
-        guiGraphics.drawString(font, message, windowX + 10, yPos, 0xFFAAAAAA, false);
+        if (!com.aetheriusmmorpg.client.ClientGuildData.hasGuild()) {
+            // Not in a guild
+            Component message = Component.literal("§7Not in a guild");
+            guiGraphics.drawString(font, message, windowX + 10, yPos, 0xFFFFFFFF, false);
+
+            Component hint = Component.literal("§7Find a Guild Master NPC to create or join a guild");
+            guiGraphics.drawString(font, hint, windowX + 10, yPos + 15, 0xFFAAAAAA, false);
+        } else {
+            // Guild info preview
+            guiGraphics.drawString(font, Component.literal("§6Guild:"), windowX + 10, yPos, 0xFFFFFFFF, false);
+            yPos += 15;
+
+            String guildName = com.aetheriusmmorpg.client.ClientGuildData.getGuildName();
+            String guildTag = com.aetheriusmmorpg.client.ClientGuildData.getGuildTag();
+            guiGraphics.drawString(font, Component.literal("  §f[" + guildTag + "] " + guildName), windowX + 10, yPos, 0xFFFFFFFF, false);
+            yPos += 20;
+
+            int level = com.aetheriusmmorpg.client.ClientGuildData.getLevel();
+            guiGraphics.drawString(font, Component.literal("§bLevel: §f" + level), windowX + 10, yPos, 0xFFFFFFFF, false);
+            yPos += 15;
+
+            int members = com.aetheriusmmorpg.client.ClientGuildData.getMembers().size();
+            int maxMembers = com.aetheriusmmorpg.client.ClientGuildData.getMaxMembers();
+            guiGraphics.drawString(font, Component.literal("§bMembers: §f" + members + " / " + maxMembers), windowX + 10, yPos, 0xFFFFFFFF, false);
+            yPos += 20;
+
+            guiGraphics.drawString(font, Component.literal("§7Click 'View Guild' to manage your guild"), windowX + 10, yPos, 0xFFAAAAAA, false);
+        }
     }
 
     private String getPlayerName(UUID playerId) {

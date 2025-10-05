@@ -15,6 +15,15 @@ import com.aetheriusmmorpg.network.packet.party.S2CPartyInvitePacket;
 import com.aetheriusmmorpg.network.packet.party.S2CPartyUpdatePacket;
 import com.aetheriusmmorpg.network.packet.friend.C2SFriendActionPacket;
 import com.aetheriusmmorpg.network.packet.friend.S2CFriendListSyncPacket;
+import com.aetheriusmmorpg.network.packet.guild.C2SGuildActionPacket;
+import com.aetheriusmmorpg.network.packet.guild.S2CGuildDataPacket;
+import com.aetheriusmmorpg.network.packet.chat.C2SChatMessagePacket;
+import com.aetheriusmmorpg.network.packet.chat.S2CChatMessagePacket;
+import com.aetheriusmmorpg.network.packet.quest.C2SQuestActionPacket;
+import com.aetheriusmmorpg.network.packet.quest.S2CQuestUpdatePacket;
+import com.aetheriusmmorpg.network.packet.quest.S2CQuestCompletePacket;
+import com.aetheriusmmorpg.network.packet.quest.S2CQuestAbandonPacket;
+import com.aetheriusmmorpg.network.packet.trade.C2STradeRequestPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
@@ -131,6 +140,71 @@ public class NetworkHandler {
             .consumerMainThread(S2CFriendListSyncPacket::handle)
             .add();
 
+        INSTANCE.messageBuilder(C2SFriendActionPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+            .decoder(C2SFriendActionPacket::new)
+            .encoder(C2SFriendActionPacket::encode)
+            .consumerMainThread(C2SFriendActionPacket::handle)
+            .add();
+
+        // Guild System packets
+        INSTANCE.messageBuilder(S2CGuildDataPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+            .decoder(S2CGuildDataPacket::new)
+            .encoder(S2CGuildDataPacket::encode)
+            .consumerMainThread(S2CGuildDataPacket::handle)
+            .add();
+
+        INSTANCE.messageBuilder(C2SGuildActionPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+            .decoder(C2SGuildActionPacket::new)
+            .encoder(C2SGuildActionPacket::encode)
+            .consumerMainThread(C2SGuildActionPacket::handle)
+            .add();
+
+        // Chat System packets
+        INSTANCE.messageBuilder(S2CChatMessagePacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+            .decoder(S2CChatMessagePacket::new)
+            .encoder(S2CChatMessagePacket::encode)
+            .consumerMainThread(S2CChatMessagePacket::handle)
+            .add();
+
+        INSTANCE.messageBuilder(C2SChatMessagePacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+            .decoder(C2SChatMessagePacket::new)
+            .encoder(C2SChatMessagePacket::encode)
+            .consumerMainThread(C2SChatMessagePacket::handle)
+            .add();
+
+        // Quest System packets
+        INSTANCE.messageBuilder(C2SQuestActionPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+            .decoder(C2SQuestActionPacket::new)
+            .encoder(C2SQuestActionPacket::encode)
+            .consumerMainThread(C2SQuestActionPacket::handle)
+            .add();
+
+        INSTANCE.messageBuilder(S2CQuestUpdatePacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+            .decoder(S2CQuestUpdatePacket::new)
+            .encoder(S2CQuestUpdatePacket::encode)
+            .consumerMainThread(S2CQuestUpdatePacket::handle)
+            .add();
+
+        INSTANCE.messageBuilder(S2CQuestCompletePacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+            .decoder(S2CQuestCompletePacket::new)
+            .encoder(S2CQuestCompletePacket::encode)
+            .consumerMainThread(S2CQuestCompletePacket::handle)
+            .add();
+
+        INSTANCE.messageBuilder(S2CQuestAbandonPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+            .decoder(S2CQuestAbandonPacket::new)
+            .encoder(S2CQuestAbandonPacket::encode)
+            .consumerMainThread(S2CQuestAbandonPacket::handle)
+            .add();
+
+        // Trade System packets
+        INSTANCE.messageBuilder(C2STradeRequestPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+            .decoder(C2STradeRequestPacket::new)
+            .encoder(C2STradeRequestPacket::encode)
+            .consumerMainThread(C2STradeRequestPacket::handle)
+            .add();
+
+        // Friend System packets
         INSTANCE.messageBuilder(C2SFriendActionPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
             .decoder(C2SFriendActionPacket::new)
             .encoder(C2SFriendActionPacket::encode)

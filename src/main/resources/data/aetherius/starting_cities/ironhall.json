@@ -1,0 +1,14 @@
+{
+  "id": "aetherius:ironhall",
+  "name": "Ironhall",
+  "description": "The industrious city of the Humans, known for its advancements in technology and warfare. The industrious heartland featuring advanced technology and a strong military presence. Quests involve technological espionage, industrial sabotage, and large-scale battles.",
+  "position": {
+    "x": 0,
+    "y": 70,
+    "z": 0
+  },
+  "yaw": 0.0,
+  "pitch": 0.0,
+  "dimension": "minecraft:overworld"
+}
+

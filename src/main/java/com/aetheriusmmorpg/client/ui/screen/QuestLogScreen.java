@@ -47,12 +47,19 @@ public class QuestLogScreen extends Screen {
 
         this.addRenderableWidget(closeButton);
 
-        // Track Quest button (placeholder for future implementation)
+        // Track Quest button
         if (!activeQuests.isEmpty()) {
             Button trackButton = Button.builder(
                 Component.literal("Track"),
                 btn -> {
-                    // TODO: Track selected quest
+                    if (selectedQuestIndex < activeQuests.size()) {
+                        QuestProgress progress = activeQuests.get(selectedQuestIndex);
+                        Quest quest = QuestManager.getQuest(progress.getQuestId());
+                        if (quest != null) {
+                            com.aetheriusmmorpg.client.ClientQuestData.setTrackedQuest(quest.id());
+                            minecraft.player.sendSystemMessage(Component.literal("§eNow tracking: " + quest.name()));
+                        }
+                    }
                 }
             ).bounds(centerX + 10, centerY + PANEL_HEIGHT - 30, 50, 20).build();
 

@@ -46,6 +46,14 @@ public class ModKeyBindings {
         CATEGORY
     );
 
+    public static final KeyMapping CHAT = new KeyMapping(
+        "key." + AetheriusMod.MOD_ID + ".chat",
+        KeyConflictContext.IN_GAME,
+        InputConstants.Type.KEYSYM,
+        GLFW.GLFW_KEY_ENTER,  // PWI default: Enter for chat
+        CATEGORY
+    );
+
     // Action bar 1 (skills 1-9)
     public static final KeyMapping[] ACTION_BAR_A = new KeyMapping[9];
 

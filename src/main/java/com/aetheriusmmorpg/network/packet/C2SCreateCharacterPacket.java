@@ -112,21 +112,69 @@ public record C2SCreateCharacterPacket(
                     // Sync skill bar
                     NetworkHandler.sendToPlayer(new S2CSkillBarPacket(data.getSkillBar()), player);
 
-                    // Teleport player to world spawn as starting location
-                    // TODO: Implement race-specific starting cities
-                    net.minecraft.core.BlockPos spawnPos = player.serverLevel().getSharedSpawnPos();
-                    player.teleportTo(
-                        player.serverLevel(),
-                        spawnPos.getX() + 0.5,
-                        spawnPos.getY(),
-                        spawnPos.getZ() + 0.5,
-                        player.getYRot(),
-                        player.getXRot()
-                    );
-                    // ResourceLocation startingCity = race.startingCity();
+                    // Teleport player to race-specific starting city
+                    teleportToStartingCity(player, race);
                 });
             }
         });
         ctx.get().setPacketHandled(true);
+    }
+
+    /**
+     * Teleport the player to their race's starting city.
+     */
+    private static void teleportToStartingCity(ServerPlayer player, com.aetheriusmmorpg.common.rpg.race.Race race) {
+        ResourceLocation startingCityId = race.startingCity();
+        
+        com.aetheriusmmorpg.common.world.StartingCity city = DatapackEvents.STARTING_CITY_MANAGER
+            .getCity(startingCityId)
+            .orElse(null);
+
+        if (city != null) {
+            // Get the target dimension
+            net.minecraft.server.level.ServerLevel targetLevel = player.getServer().getLevel(city.dimension());
+            
+            if (targetLevel != null) {
+                // Teleport to starting city
+                net.minecraft.core.BlockPos pos = city.position();
+                player.teleportTo(
+                    targetLevel,
+                    pos.getX() + 0.5,
+                    pos.getY(),
+                    pos.getZ() + 0.5,
+                    city.yaw(),
+                    city.pitch()
+                );
+                
+                player.sendSystemMessage(net.minecraft.network.chat.Component.literal(
+                    "§6Welcome to " + city.name() + "!"));
+                
+                AetheriusMod.LOGGER.info("Player {} teleported to starting city {} at {}",
+                    player.getName().getString(), city.name(), pos);
+            } else {
+                AetheriusMod.LOGGER.error("Target dimension {} not found for starting city {}",
+                    city.dimension(), startingCityId);
+                teleportToWorldSpawn(player);
+            }
+        } else {
+            AetheriusMod.LOGGER.warn("Starting city {} not found, using world spawn",
+                startingCityId);
+            teleportToWorldSpawn(player);
+        }
+    }
+
+    /**
+     * Fallback teleport to world spawn.
+     */
+    private static void teleportToWorldSpawn(ServerPlayer player) {
+        net.minecraft.core.BlockPos spawnPos = player.serverLevel().getSharedSpawnPos();
+        player.teleportTo(
+            player.serverLevel(),
+            spawnPos.getX() + 0.5,
+            spawnPos.getY(),
+            spawnPos.getZ() + 0.5,
+            player.getYRot(),
+            player.getXRot()
+        );
     }
 }

@@ -159,7 +159,15 @@ public class ShadowLordBoss extends DungeonBoss {
             double x = getX() + Math.cos(angle) * 3;
             double z = getZ() + Math.sin(angle) * 3;
 
-            // TODO: Spawn actual shadow minion entity
+            // Spawn shadow minion entity
+            if (level() instanceof net.minecraft.server.level.ServerLevel serverLevel) {
+                ShadowMinionEntity minion = new ShadowMinionEntity(
+                    com.aetheriusmmorpg.common.registry.ModEntities.SHADOW_MINION.get(), 
+                    serverLevel
+                );
+                minion.moveTo(getX() + random.nextGaussian() * 2, getY(), getZ() + random.nextGaussian() * 2);
+                serverLevel.addFreshEntity(minion);
+            }
             // For now, just visual effect
             ((ServerLevel) level()).sendParticles(
                 ParticleTypes.LARGE_SMOKE,

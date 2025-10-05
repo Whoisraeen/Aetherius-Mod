@@ -1,0 +1,14 @@
+{
+  "id": "aetherius:thornspire",
+  "name": "Thornspire",
+  "description": "Home of the Dark Elves, hidden within twisted thicket woods. Hidden by perpetual shadows, this city of intrigue and covert operations houses masters of stealth and espionage. Quests often involve secret societies and hidden knowledge.",
+  "position": {
+    "x": -1200,
+    "y": 68,
+    "z": -800
+  },
+  "yaw": 270.0,
+  "pitch": 0.0,
+  "dimension": "minecraft:overworld"
+}
+

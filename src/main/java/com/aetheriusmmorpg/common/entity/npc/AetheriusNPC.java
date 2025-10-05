@@ -136,23 +136,70 @@ public class AetheriusNPC extends PathfinderMob {
     }
 
     protected void openQuestDialog(Player player) {
-        // TODO: Open quest dialog GUI
-        player.sendSystemMessage(Component.literal("§e" + getNpcDisplayName() + "§f: I have a quest for you!"));
+        // Open quest dialog GUI
+        if (player instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
+            String npcId = getNPCId();
+            net.minecraftforge.network.NetworkHooks.openScreen(serverPlayer,
+                new net.minecraft.world.SimpleMenuProvider(
+                    (containerId, inventory, p) -> new com.aetheriusmmorpg.common.menu.QuestDialogMenu(containerId, inventory, npcId),
+                    Component.translatable("gui.aetherius.quest_dialog")
+                )
+            );
+        }
     }
 
     protected void openMerchantDialog(Player player) {
-        // TODO: Open merchant GUI
-        player.sendSystemMessage(Component.literal("§6" + getNpcDisplayName() + "§f: Welcome to my shop!"));
+        // Open merchant GUI
+        if (player instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
+            String npcId = getNPCId();
+            net.minecraftforge.network.NetworkHooks.openScreen(serverPlayer,
+                new net.minecraft.world.SimpleMenuProvider(
+                    (containerId, inventory, p) -> new com.aetheriusmmorpg.common.menu.MerchantMenu(containerId, inventory, npcId),
+                    Component.translatable("gui.aetherius.merchant")
+                )
+            );
+        }
     }
 
     protected void openTrainerDialog(Player player) {
-        // TODO: Open skill trainer GUI
-        player.sendSystemMessage(Component.literal("§b" + getNpcDisplayName() + "§f: I can teach you new skills."));
+        // Open skill trainer GUI
+        if (player instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
+            String npcId = getNPCId();
+            net.minecraftforge.network.NetworkHooks.openScreen(serverPlayer,
+                new net.minecraft.world.SimpleMenuProvider(
+                    (containerId, inventory, p) -> new com.aetheriusmmorpg.common.menu.SkillTrainerMenu(containerId, inventory, npcId),
+                    Component.translatable("gui.aetherius.skill_trainer")
+                )
+            );
+        }
     }
 
     protected void openGuildDialog(Player player) {
-        // TODO: Open guild GUI
-        player.sendSystemMessage(Component.literal("§5" + getNpcDisplayName() + "§f: Join our guild!"));
+        // Open guild management GUI
+        if (player instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
+            net.minecraftforge.network.NetworkHooks.openScreen(serverPlayer,
+                new net.minecraft.world.SimpleMenuProvider(
+                    (containerId, inventory, p) -> new com.aetheriusmmorpg.common.menu.GuildMenu(containerId, inventory),
+                    Component.translatable("gui.aetherius.guild")
+                )
+            );
+            
+            // Sync guild data to client
+            com.aetheriusmmorpg.common.guild.GuildManager manager = com.aetheriusmmorpg.common.guild.GuildManager.get(serverPlayer.getServer());
+            com.aetheriusmmorpg.common.guild.Guild guild = manager.getPlayerGuild(serverPlayer.getUUID());
+            
+            if (guild != null) {
+                com.aetheriusmmorpg.network.NetworkHandler.sendToPlayer(
+                    new com.aetheriusmmorpg.network.packet.guild.S2CGuildDataPacket(guild), 
+                    serverPlayer
+                );
+            } else {
+                com.aetheriusmmorpg.network.NetworkHandler.sendToPlayer(
+                    new com.aetheriusmmorpg.network.packet.guild.S2CGuildDataPacket(), 
+                    serverPlayer
+                );
+            }
+        }
     }
 
     protected void openGenericDialog(Player player) {

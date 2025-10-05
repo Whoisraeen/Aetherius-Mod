@@ -1,0 +1,14 @@
+{
+  "id": "aetherius:beastden",
+  "name": "Beastden",
+  "description": "The wild jungles home to the Beastkin, full of vibrant flora and fauna. A city deep in the jungle, ruled by Beastkin. It's a wild, untamed place where players undertake quests involving exotic creatures, tribal conflicts, and jungle survival skills.",
+  "position": {
+    "x": -400,
+    "y": 72,
+    "z": 900
+  },
+  "yaw": 135.0,
+  "pitch": 0.0,
+  "dimension": "minecraft:overworld"
+}
+

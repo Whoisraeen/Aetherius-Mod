@@ -1,0 +1,14 @@
+{
+  "id": "aetherius:abyssia",
+  "name": "Abyssia",
+  "description": "The submerged city of the Merfolk, beneath the ocean's waves. A city of dazzling coral and luminescent sea creatures. Players come here for underwater adventures, dealing with ancient sea monsters and lost underwater kingdoms.",
+  "position": {
+    "x": 1200,
+    "y": 45,
+    "z": 1000
+  },
+  "yaw": 0.0,
+  "pitch": 0.0,
+  "dimension": "minecraft:overworld"
+}
+

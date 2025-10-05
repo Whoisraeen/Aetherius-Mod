@@ -77,7 +77,39 @@ public class SkillBarHud {
             }
         }
 
-        // TODO: Draw skill icon when skills are loaded
-        // TODO: Highlight on key press
+    }
+
+    private static void drawSkillIcon(GuiGraphics guiGraphics, net.minecraft.resources.ResourceLocation skillId, int x, int y) {
+        if (skillId == null) return;
+
+        // TODO: Draw skill icon from skill manager when properly loaded
+        Minecraft mc = Minecraft.getInstance();
+
+        // Draw skill ID as placeholder
+        String skillName = skillId.getPath();
+        if (skillName.length() > 8) {
+            skillName = skillName.substring(0, 8);
+        }
+        
+        guiGraphics.drawString(mc.font, skillName, x + 2, y + 2, 0xFFFFFFFF, true);
+
+        // Draw cooldown overlay if on cooldown
+        long currentTick = mc.level != null ? mc.level.getGameTime() : 0;
+        int remainingTicks = com.aetheriusmmorpg.client.ClientPlayerData.getRemainingCooldown(skillId, currentTick);
+        long cooldownEnd = currentTick + remainingTicks;
+        
+        if (cooldownEnd > currentTick) {
+            float cooldownPercent = (float)(cooldownEnd - currentTick) / 60.0f; // Assume 3 second cooldown
+            int cooldownHeight = (int)(SLOT_SIZE * cooldownPercent);
+            
+            guiGraphics.fill(x, y + SLOT_SIZE - cooldownHeight, x + SLOT_SIZE, y + SLOT_SIZE, 0xA0000000);
+            
+            // Cooldown text
+            int secondsLeft = (int)Math.ceil((cooldownEnd - currentTick) / 20.0);
+            net.minecraft.network.chat.Component cooldownText = net.minecraft.network.chat.Component.literal("§f" + secondsLeft);
+            guiGraphics.drawString(mc.font, cooldownText, 
+                x + SLOT_SIZE / 2 - mc.font.width(cooldownText) / 2, 
+                y + SLOT_SIZE / 2 - 4, 0xFFFFFFFF, true);
+        }
     }
 }

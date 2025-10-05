@@ -2,11 +2,18 @@ package com.aetheriusmmorpg.client;
 
 import com.aetheriusmmorpg.AetheriusMod;
 import com.aetheriusmmorpg.client.keybind.ModKeyBindings;
+import com.aetheriusmmorpg.client.ui.AdvancedChatHUD;
+import com.aetheriusmmorpg.client.ui.ChatNotificationOverlay;
 import com.aetheriusmmorpg.client.ui.PartyHUD;
 import com.aetheriusmmorpg.client.ui.PartyInviteOverlay;
 import com.aetheriusmmorpg.client.ui.PlayerContextMenu;
 import com.aetheriusmmorpg.client.ui.screen.CharacterCreationScreen;
 import com.aetheriusmmorpg.client.ui.screen.CharacterSheetScreen;
+import com.aetheriusmmorpg.client.ui.screen.ChatScreen;
+import com.aetheriusmmorpg.client.ui.screen.GuildScreen;
+import com.aetheriusmmorpg.client.ui.screen.QuestDialogScreen;
+import com.aetheriusmmorpg.client.ui.screen.MerchantScreen;
+import com.aetheriusmmorpg.client.ui.screen.SkillTrainerScreen;
 import com.aetheriusmmorpg.client.ui.screen.SocialScreen;
 import com.aetheriusmmorpg.common.registry.ModMenus;
 import com.aetheriusmmorpg.network.NetworkHandler;
@@ -21,6 +28,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
+import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -39,6 +47,10 @@ public class ClientSetup {
             // Register menu screens
             MenuScreens.register(ModMenus.CHARACTER_SHEET.get(), CharacterSheetScreen::new);
             MenuScreens.register(ModMenus.CHARACTER_CREATION.get(), CharacterCreationScreen::new);
+            MenuScreens.register(ModMenus.GUILD.get(), GuildScreen::new);
+            MenuScreens.register(ModMenus.QUEST_DIALOG.get(), QuestDialogScreen::new);
+            MenuScreens.register(ModMenus.MERCHANT.get(), MerchantScreen::new);
+            MenuScreens.register(ModMenus.SKILL_TRAINER.get(), SkillTrainerScreen::new);
 
             AetheriusMod.LOGGER.info("Client setup complete");
         });
@@ -50,6 +62,7 @@ public class ClientSetup {
         event.register(ModKeyBindings.SKILL_TREE);
         event.register(ModKeyBindings.QUEST_LOG);
         event.register(ModKeyBindings.SOCIAL);
+        event.register(ModKeyBindings.CHAT);
 
         for (KeyMapping key : ModKeyBindings.ACTION_BAR_A) {
             event.register(key);
@@ -84,6 +97,13 @@ class ClientForgeEvents {
                 }
             }
 
+            // Chat keybind - open advanced chat HUD
+            if (ModKeyBindings.CHAT.consumeClick()) {
+                if (mc.player != null && !AdvancedChatHUD.isOpen()) {
+                    AdvancedChatHUD.open();
+                }
+            }
+
             // Skill bar keybinds (1-9)
             if (mc.player != null) {
                 for (int i = 0; i < 9; i++) {
@@ -114,6 +134,12 @@ class ClientForgeEvents {
             return;
         }
 
+        // Render advanced chat HUD
+        AdvancedChatHUD.render(event.getGuiGraphics(), event.getWindow().getGuiScaledWidth(), event.getWindow().getGuiScaledHeight());
+
+        // Render chat notifications
+        ChatNotificationOverlay.render(event.getGuiGraphics(), event.getWindow().getGuiScaledWidth(), event.getWindow().getGuiScaledHeight());
+
         // Render party HUD
         PartyHUD.render(event.getGuiGraphics(), event.getWindow().getGuiScaledWidth(), event.getWindow().getGuiScaledHeight());
 
@@ -123,8 +149,48 @@ class ClientForgeEvents {
 
     @SubscribeEvent
     public static void onKeyInput(InputEvent.Key event) {
+        // Advanced chat key handling
+        if (AdvancedChatHUD.isOpen()) {
+            if (AdvancedChatHUD.keyPressed(event.getKey(), event.getScanCode(), event.getModifiers())) {
+                return;
+            }
+        }
+
         // Handle Y/N for party invites
         PartyInviteOverlay.handleKeyPress(event.getKey());
+    }
+
+    @SubscribeEvent
+    public static void onCharTyped(ScreenEvent.CharacterTyped.Pre event) {
+        // Advanced chat character input
+        if (AdvancedChatHUD.isOpen()) {
+            if (AdvancedChatHUD.charTyped(event.getCodePoint(), event.getModifiers())) {
+                event.setCanceled(true);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onMouseScroll(InputEvent.MouseScrollingEvent event) {
+        // Advanced chat scroll handling
+        if (AdvancedChatHUD.isOpen()) {
+            if (AdvancedChatHUD.mouseScrolled(event.getScrollDelta())) {
+                event.setCanceled(true);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onMouseClick(ScreenEvent.MouseButtonPressed.Pre event) {
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.player == null) return;
+
+        // Advanced chat mouse handling
+        if (AdvancedChatHUD.isOpen()) {
+            if (AdvancedChatHUD.mouseClicked(event.getMouseX(), event.getMouseY(), mc.getWindow().getGuiScaledWidth(), mc.getWindow().getGuiScaledHeight())) {
+                event.setCanceled(true);
+            }
+        }
     }
 
     @SubscribeEvent
